@@ -105,3 +105,11 @@ def getgcn(n):
             g = line.strip()
             gcnlist.append(g)
     return gcnlist
+
+def getgcn_map(n):
+    gcn_map = {}
+    with open(lda_gcn + str(n)) as file:
+        for i,line in enumerate(file):
+            g = line.strip()
+            gcn_map[g] = i
+    return gcn_map

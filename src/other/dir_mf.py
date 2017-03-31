@@ -19,6 +19,7 @@ def get_matrix():
 
     relation = constant.file.get_relation()
     for i, words in enumerate(relation):
+        print str(float(i)/user_num) + '\r',
         for word in words:
             j = word_list[word]
             matrix[i, j] += 1

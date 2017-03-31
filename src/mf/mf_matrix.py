@@ -34,8 +34,9 @@ def __read_matrix(n, relation, doc_list):
     for i, f in enumerate(fcn_list):
         glist = relation[doc_list[f]]
         for g in glist:
-            gi = gcn_map[g]
-            output.write(str(gi) + ' ')
+            if gcn_map.has_key(g):
+                gi = gcn_map[g]
+                output.write(str(gi) + ' ')
         output.write('\n')
     output.close()
     print str(n) + ' finish'

@@ -43,7 +43,7 @@ def __read():
         followee_list = query_map[f]
         has_write_f = False
         for gi, g in enumerate(followee_list):
-            if gi % testset_mod == 0:
+            if gi % testset_mod == 1:
                 testset_file.write(f + ' ' + g + '\n')
             else:
                 if has_write_f:

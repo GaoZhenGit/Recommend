@@ -7,6 +7,7 @@ from multiprocessing import Process
 
 
 def compute_score(threadHold,P, Pshape, Q, Qshape, scoreFile):
+    print str(scoreFile + ' start')
     Pmatrix = sparse.lil_matrix(Pshape, dtype=float)
     with open(P) as file:
         for row, fileLine in enumerate(file):
@@ -65,8 +66,10 @@ def run():
         # compute_score(threadHold,pFile, pShape, qFile, qShape, constant.mf_score + str(i))
         p.start()
         plist.append(p)
-    for p in plist:
-        p.join()
+        if len(plist) == 3:
+            for p in plist:
+                p.join()
+            plist = []
     print 'all finish'
 
 if __name__ == '__main__':

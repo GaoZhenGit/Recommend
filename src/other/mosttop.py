@@ -12,6 +12,12 @@ def sort_by_value(d):
     return [backitems[i][1] for i in range(0, len(backitems))]
 
 def get_mosttop(recommend_count = 15):
+    word_map = get_mosttop_map()
+    print 'words count:', len(word_map)
+    word_list = sort_by_value(word_map)[0:recommend_count]
+    return  word_list
+
+def get_mosttop_map():
     word_map = {}
     relation = constant.file.get_relation()
     for line_words in relation:
@@ -20,11 +26,8 @@ def get_mosttop(recommend_count = 15):
                 word_map[word] += 1
             else:
                 word_map[word] = 1
-
-    print 'words count:', len(word_map)
-
-    word_list = sort_by_value(word_map)[0:recommend_count]
-    return  word_list
+    del relation
+    return word_map
 
 def run():
     word_list = get_mosttop()

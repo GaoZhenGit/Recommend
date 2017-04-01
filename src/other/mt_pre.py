@@ -33,7 +33,7 @@ def __mt_matrix(origin_count=3, mt_count=1):
     return matrix
 
 
-def __pop_mt_matrix(base_num=50):
+def __pop_mt_matrix(base_num=10):
     mt_map = mosttop.get_mosttop_map()
     mt_list = mosttop.sort_by_value(mt_map)
     max_count = mt_map[mt_list[0]]

@@ -53,7 +53,7 @@ case $1 in
     ;;
 
     "mt_pre")
-    python -m other.mt_pre $2
+    python -m other.mt_pre $2 $3
     ;;
 
     "mt_post")

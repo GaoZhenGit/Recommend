@@ -66,7 +66,7 @@ def run():
         # compute_score(threadHold,pFile, pShape, qFile, qShape, constant.mf_score + str(i))
         p.start()
         plist.append(p)
-        if len(plist) == 3:
+        if len(plist) == 5:
             for p in plist:
                 p.join()
             plist = []

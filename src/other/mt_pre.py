@@ -9,6 +9,7 @@ import mf.runner as mf_runner
 import other.dir_mf as dir_mf
 import other.dir_lda
 import scipy.sparse as sparse
+import sys
 
 recommend_count = 15
 
@@ -53,4 +54,14 @@ def pre_lda_mf(origin_count=3,mt_count=1):
     mf_runner.run()
 
 if __name__ == '__main__':
-    pre_lda_mf(origin_count=10,mt_count=1)
+    if len(sys.argv) == 1:
+        pre_lda_mf(origin_count=10,mt_count=1)
+    elif len(sys.argv) == 3:
+        count = int(sys.argv[2])
+        print sys.argv[1],count
+        if sys.argv[1] == 'lda':
+            pre_lda(origin_count=count,mt_count=1)
+        elif sys.argv[1] == 'mf':
+            pre_mf(origin_count=count,mt_count=1)
+        elif sys.argv[1] == 'lda_mf':
+            pre_lda_mf(origin_count=count,mt_count=1)

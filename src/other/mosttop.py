@@ -11,7 +11,7 @@ def sort_by_value(d):
     backitems.sort(reverse=True)
     return [backitems[i][1] for i in range(0, len(backitems))]
 
-def get_mosttop(recommend_count = 15):
+def get_mosttop(recommend_count = constant.recommend_count):
     word_map = get_mosttop_map()
     print 'words count:', len(word_map)
     word_list = sort_by_value(word_map)[0:recommend_count]

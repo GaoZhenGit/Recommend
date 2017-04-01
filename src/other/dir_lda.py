@@ -8,7 +8,6 @@ baseDir = './'
 theta_dir = constant.lda_theta
 phi_dir = constant.lda_phi
 
-threadHold = 15
 
 
 def readLdaResult(user_num, item_num, topic_num, output_file=constant.other_dirlda_edges):
@@ -38,7 +37,7 @@ def readLdaResult(user_num, item_num, topic_num, output_file=constant.other_dirl
     edge = open(output_file, 'w')
     for i in xrange(score.shape[0]):
         list = (score[i].toarray())[0].tolist()
-        clist = sorted(list, reverse=True)[0:threadHold]
+        clist = sorted(list, reverse=True)[0:constant.recommend_count]
         doc_id = doc_list[i]
         for j in clist:
             word_id = word_list[list.index(j)]

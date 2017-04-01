@@ -8,7 +8,6 @@ import constant
 import constant.file
 
 
-recommend_count = 15
 
 
 def makeMatrix():
@@ -53,7 +52,7 @@ def printMatrix(matrix, mapper):
     row = matrix.shape[0]
     for i in xrange(row):
         list = matrix[i].toarray()[0].tolist()
-        clist = sorted(list, reverse=True)[0:recommend_count]
+        clist = sorted(list, reverse=True)[0:constant.recommend_count]
         row_id = mapper.get_real_doc_id(i)
         for j in xrange(len(clist)):
             word_index = list.index(clist[j])

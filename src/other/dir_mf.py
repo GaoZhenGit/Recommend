@@ -6,7 +6,6 @@ import constant.file
 import mf.ifmf
 
 baseDir = './'
-threadHold = 15
 
 def get_matrix():
     # 获取矩阵信息
@@ -43,7 +42,7 @@ def process_print(matrix,output_file = constant.other_dirmf_edges):
     edge = open(output_file, 'w')
     for i in xrange(score.shape[0]):
         list = (score[i].toarray())[0].tolist()
-        clist = sorted(list, reverse=True)[0:threadHold]
+        clist = sorted(list, reverse=True)[0:constant.recommend_count]
         doc_id = doc_list[i]
         for j in clist:
             word_id = word_list[list.index(j)]

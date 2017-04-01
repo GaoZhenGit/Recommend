@@ -13,7 +13,6 @@ import sys
 sys.path.append('./other')
 import math
 
-recommend_count = 15
 
 
 def __mt_matrix(origin_count=3, mt_count=1):

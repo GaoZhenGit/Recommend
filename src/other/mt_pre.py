@@ -41,7 +41,7 @@ def __pop_mt_matrix(base_num=10):
     for g in mt_list:
         p = mt_map[g]
         p = base_num - (math.log(p) / max_count_log) * base_num + 1
-        mt_map[g] = int(p + 0.5)
+        mt_map[g] = int(p)
     del mt_list
 
     relation = constant.file.get_relation()

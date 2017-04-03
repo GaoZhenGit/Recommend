@@ -15,10 +15,12 @@ def doMatrixF(inputFile, p, q):
                 num_items = int(num_items)
                 matrix = sparse.lil_matrix((num_users, num_items), dtype=int)
             else:
-                follower = line.strip().split(' ')
-                if len(follower) > 1:
-                    for col in follower:
-                        matrix[int(row - 1), int(col)] = 1
+                glist = line.strip().split(' ')
+                if len(glist) > 1:
+                    for gi in glist:
+                        gi = gi.split(':')
+                        col = gi[0]
+                        matrix[int(row - 1), int(col)] = gi[1]
 
     P, Q = ifmf.alternating_least_squares_cg(matrix, constant.mf_factors_count, regularization=0.01, iterations=15)
 

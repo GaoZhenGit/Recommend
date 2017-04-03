@@ -37,7 +37,7 @@ mf_factors_count = 10
 
 mf_score_dir = mf_dir + 'score/'
 mf_score = mf_score_dir + 's_'
-mf_score_threadhold = 256
+mf_score_threadhold = 128
 mf_result_dir = mf_dir + 'result/'
 mf_edge = mf_result_dir + 'score_edge.txt'
 mf_sum = mf_result_dir + 'score_sum.txt'

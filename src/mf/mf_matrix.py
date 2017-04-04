@@ -20,7 +20,7 @@ def read(n=-1):
     else:
         relation = constant.file.get_relation()
         doc_map = constant.file.get_docmap()
-        __read_matrix(n,relation,doc_map)
+        __read_matrix(n, relation, doc_map)
 
 
 def __read_matrix(n, relation, doc_map):
@@ -35,16 +35,22 @@ def __read_matrix(n, relation, doc_map):
         glist = relation[doc_map[f]]
         for g in glist:
             if gcn_map.has_key(g):
-                gi = gcn_map[g]
-                # output.write(str(gi) + ' ')
-                flist = relation[doc_map[g]]
-                if f in flist:
-                    output.write(str(gi) + ':2 ')
-                else:
-                    output.write(str(gi) + ':1 ')
+                __double_relation(output, f, g, gcn_map, doc_map, relation)
         output.write('\n')
     output.close()
     print str(n) + ' finish'
+
+
+# 对于双向关系加重矩阵中的权重
+def __double_relation(output, f, g, gcn_map, doc_map, relation, rate=constant.mf_matrix_rate):
+    if gcn_map.has_key(g):
+        gi = gcn_map[g]
+        flist = relation[doc_map[g]]
+        if f in flist:
+            output.write(str(gi) + ':' + str(rate) + ' ')
+        else:
+            output.write(str(gi) + ':1 ')
+
 
 if __name__ == '__main__':
     read(-1)

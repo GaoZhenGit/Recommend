@@ -45,11 +45,12 @@ def __read_matrix(n, relation, doc_map):
 def __double_relation(output, f, g, gcn_map, doc_map, relation, rate=constant.mf_matrix_rate):
     if gcn_map.has_key(g):
         gi = gcn_map[g]
-        flist = relation[doc_map[g]]
-        if f in flist:
-            output.write(str(gi) + ':' + str(rate) + ' ')
-        else:
-            output.write(str(gi) + ':1 ')
+        #flist = relation[doc_map[g]]
+        # if f in flist:
+        #     output.write(str(gi) + ':' + str(rate) + ' ')
+        # else:
+        #     output.write(str(gi) + ':1 ')
+        output.write(str(gi) + ':' + str(rate) + ' ')
 
 
 if __name__ == '__main__':

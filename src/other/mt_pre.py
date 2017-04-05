@@ -58,7 +58,7 @@ def __pop_mt_matrix(base_num=10):
 
 
 def pre_lda(origin_count=3, mt_count=1):
-    matrix = __mt_matrix(origin_count, mt_count)
+    matrix = __pop_mt_matrix()
     # 开始lda
     model = lda_executor.do_lda(matrix)
     lda_executor.print_model(model)
@@ -70,12 +70,11 @@ def pre_lda(origin_count=3, mt_count=1):
 
 
 def pre_mf(origin_count=3, mt_count=1):
-    matrix = __mt_matrix(origin_count, mt_count)
+    matrix = __pop_mt_matrix()
     dir_mf.process_print(matrix, constant.other_mt_mf_edge)
 
 
 def pre_lda_mf(origin_count=3, mt_count=1):
-    # matrix = __mt_matrix(origin_count, mt_count)
     matrix = __pop_mt_matrix()
     # 开始lda
     model = lda_executor.do_lda(matrix)

@@ -1,7 +1,9 @@
 # -*- coding: UTF-8 -*-
 import scipy.sparse as sparse
-import lda
+import _vector_beta_lda as lda
 import constant.file
+import other.mosttop as mt
+import math
 
 
 def get_matrix():
@@ -18,9 +20,9 @@ def get_matrix():
     return matrix
 
 
-def do_lda(X, topic_count=constant.lda_topic_count, iter_count=100, alpha=0.5):
+def do_lda(X, topic_count=constant.lda_topic_count, iter_count=100, alpha=0.5, beta = 0.01):
     print 'lda start'
-    model = lda.LDA(n_topics=topic_count, random_state=None, n_iter=iter_count, alpha=alpha)
+    model = lda.LDA(n_topics=topic_count, random_state=None, n_iter=iter_count, alpha=alpha, eta = beta)
     model.fit(X)
     print 'lda end'
     return model
@@ -42,9 +44,22 @@ def print_model(model):
                 file.write(str(j) + ' ')
             file.write('\n')
 
+def __get_beta_list():
+    mt_map = mt.get_mosttop_map()
+    word_list = constant.file.get_wordmap(True)
+    max_lp = math.log(max(mt_map.values()))
+
+    beta_list = []
+
+    for w in word_list:
+        p = mt_map[w]
+        p = math.log(p) / max_lp / 100.0
+        beta_list.append(p)
+    return beta_list
+
 def run():
     matrix = get_matrix()
-    model = do_lda(matrix)
+    model = do_lda(matrix,beta= __get_beta_list())
     print_model(model)
 
 if __name__ == '__main__':

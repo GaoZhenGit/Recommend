@@ -9,6 +9,7 @@ if %1 == mf_matrix python -m mf.mf_matrix
 if %1 == mf_mf python -m mf.mf
 if %1 == mf_score python -m mf.mf_score
 if %1 == mf_result python -m mf.mf_result
+if %1 == mf_fastmf python -m mf.fast_mf
 
 if %1 == con python -m conclusion.conclusion_cal %2
 

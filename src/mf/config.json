@@ -1,0 +1,10 @@
+{
+  "factors": 10,
+  "maxIter": 10,
+  "alpha": 0.75,
+  "input": "./data/mfDir/matrix/",
+  "output": "./data/mfDir/pq/",
+  "matrixCount":15,
+  "inputPrefix":"z_",
+  "maxThread":5
+}

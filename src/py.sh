@@ -35,6 +35,10 @@ case $1 in
     "mf_result")
     python -m mf.mf_result
     ;;
+
+    "mf_fastmf")
+    python -m mf.fast_mf
+    ;;
     
     "con")
     python -m conclusion.conclusion_cal $2

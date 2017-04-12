@@ -16,5 +16,6 @@ if %1 == con python -m conclusion.conclusion_cal %2
 if %1 == dir_mf python -m other.dir_mf
 if %1 == mt python -m other.mosttop
 if %1 == dir_lda python -m other.dir_lda
+if %1 == dir_fmf python -m other.dir_fastmf
 if %1 == mt_pre python -m other.mt_pre %2 %3
 if %1 == mt_post python -m other.mt_post

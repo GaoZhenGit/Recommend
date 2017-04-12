@@ -56,6 +56,10 @@ case $1 in
     python -m other.dir_lda
     ;;
 
+    "dir_fmf")
+    python -m other.dir_fastmf
+    ;;
+
     "mt_pre")
     python -m other.mt_pre $2 $3
     ;;

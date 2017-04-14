@@ -23,6 +23,7 @@ lda_topic_dir = lda_dir + 'topic/'
 lda_fcn = lda_topic_dir + 'f_c_'
 lda_gcn = lda_topic_dir + 'g_c_'
 lda_topic_count = 15
+lda_beta_list_rate = 1
 
 # mf path
 mf_dir = base_dir + 'mfDir/'

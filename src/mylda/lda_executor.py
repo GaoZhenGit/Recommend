@@ -53,7 +53,7 @@ def __get_beta_list():
 
     for w in word_list:
         p = mt_map[w]
-        p = math.log(p) / max_lp / 100.0
+        p = math.log(p) / max_lp / constant.lda_beta_list_rate
         beta_list.append(p)
     return beta_list
 

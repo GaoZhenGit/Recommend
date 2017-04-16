@@ -27,14 +27,17 @@ lda_beta_list_rate = 1
 
 # mf path
 mf_dir = base_dir + 'mfDir/'
+mf_method = 'ifmf'
 
 mf_matrix_dir = mf_dir + 'matrix/'
 mf_matrix = mf_matrix_dir + 'z_'
+mf_media_matrix = mf_matrix_dir + 'z_tmp_'
+mf_media_model = mf_matrix_dir + 'z_model_'
 
 mf_pq = mf_dir + 'pq/'
 mf_p = mf_pq + 'p_'
 mf_q = mf_pq + 'q_'
-mf_matrix_rate = 20
+mf_matrix_rate = 1
 mf_factors_count = 10
 
 mf_score_dir = mf_dir + 'score/'
@@ -52,6 +55,8 @@ other_edges_dir = base_dir + 'edges/'
 other_dirmf_edges = other_edges_dir + 'dir_mf_edge.txt'
 other_mosttop_edges = other_edges_dir + 'mosttop_edge.txt'
 other_dirlda_edges = other_edges_dir + 'dir_lda_edge.txt'
+
+other_dirwrmf_edges = other_edges_dir + 'dir_wrmf_edge.txt'
 
 other_mt_lda_edge = other_edges_dir + 'mt_lda_edge.txt'
 other_mt_mf_edge = other_edges_dir + 'mt_mf_edge.txt'

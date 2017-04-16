@@ -22,6 +22,8 @@ elif sys.argv[1] == 'mtlda':
     result_set_dir = constant.other_mt_lda_edge
 elif sys.argv[1] == 'mtmf':
     result_set_dir = constant.other_mt_mf_edge
+elif sys.argv[1] == 'dirwrmf':
+    result_set_dir = constant.other_dirwrmf_edges
 
 print result_set_dir
 

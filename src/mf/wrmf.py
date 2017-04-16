@@ -87,10 +87,13 @@ def media_mf(index):
 
 
 def run():
+    process_list = []
     for i in xrange(constant.lda_topic_count):
         p = Process(target=media_mf, args=(i,))
         p.start()
-
+        process_list.append(p)
+    for p in process_list:
+        p.join()
 
 if __name__ == '__main__':
     run()

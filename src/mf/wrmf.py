@@ -8,6 +8,8 @@ import random
 def matrix_change(index):
     print 'change z to file'
     matrix_file = constant.mf_matrix + str(index)
+    gid_map = {}
+    id_count = 0
     with open(matrix_file) as file:
         with open(constant.mf_media_matrix + str(index), 'w') as output:
             row, col = file.readline().strip().split('*')
@@ -16,6 +18,12 @@ def matrix_change(index):
                 for it in line:
                     j, it = it.split(':')
                     output.write(str(i) + ' ' + str(j) + ' ' + str(it) + '\n')
+                    if not gid_map.has_key(j):
+                        gid_map[j] = id_count
+                        id_count += 1
+    with open(constant.mf_media_map + str(index), 'w') as map_file:
+        for it in gid_map.items():
+            map_file.write(str(it[0]) + ' ' + str(it[1]) + '\n')
 
 
 def mf(index, method='WRMF'):
@@ -24,13 +32,19 @@ def mf(index, method='WRMF'):
     training_file = '--training-file=' + constant.mf_media_matrix.split('/')[-1] + str(index)
     recommender = '--recommender=' + method
     save_model = '--save-model=' + constant.mf_media_model + str(index)
-    random_num = '--random-seed=' + str(random.randint(0,1000000))
+    random_num = '--random-seed=' + str(random.randint(0, 1000000))
     param = data_dir + ' ' + training_file + ' ' + recommender + ' ' + save_model + ' ' + random_num
     os.system('java -jar MyMediaLite.jar ' + param)
 
 
 def model_change(index):
     print 'change model to p q'
+    gid_map = {}
+    with open(constant.mf_media_map + str(index)) as map_file:
+        for line in map_file:
+            line = line.strip().split(' ')
+            gid_map[line[1]] = int(line[0])
+
     with open(constant.mf_media_model + str(index)) as file:
         print file.readline().strip()  # method
         print file.readline().strip()  # version
@@ -55,7 +69,7 @@ def model_change(index):
         for line in file:
             line = line.strip().split(' ')
             i = int(line[1])
-            j = int(line[0])
+            j = gid_map[line[0]]
             v = float(line[2])
             q[i, j] = v
 
@@ -78,12 +92,15 @@ def clear(index):
         os.remove(constant.mf_media_matrix + str(index))
     if os.path.exists(constant.mf_media_model + str(index)):
         os.remove(constant.mf_media_model + str(index))
+    if os.path.exists(constant.mf_media_map + str(index)):
+        os.remove(constant.mf_media_map + str(index))
+
 
 def media_mf(index):
     matrix_change(index)
     mf(index)
     model_change(index)
-    # clear(index)
+    clear(index)
 
 
 def run():
@@ -94,6 +111,7 @@ def run():
         process_list.append(p)
     for p in process_list:
         p.join()
+
 
 if __name__ == '__main__':
     run()

@@ -32,6 +32,7 @@ mf_method = 'ifmf'
 mf_matrix_dir = mf_dir + 'matrix/'
 mf_matrix = mf_matrix_dir + 'z_'
 mf_media_matrix = mf_matrix_dir + 'z_tmp_'
+mf_media_map = mf_matrix_dir + 'z_map_'
 mf_media_model = mf_matrix_dir + 'z_model_'
 
 mf_pq = mf_dir + 'pq/'

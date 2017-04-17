@@ -83,9 +83,9 @@ def clean():
 
 def run():
     read_matrix()
-    mf()
-    multiply()
-    clean()
+    # mf()
+    # multiply()
+    # clean()
 
 
 if __name__ == '__main__':

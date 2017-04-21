@@ -22,8 +22,6 @@ def compute_score(threadHold,P, Pshape, Q, Qshape, scoreFile):
             for col, element in enumerate(lines):
                 Qmatrix[row, col] = float(element)
 
-    print('size of p:' + str(sys.getsizeof(Pmatrix)))
-    print('size of q:' + str(sys.getsizeof(Qmatrix)))
     score = Pmatrix.dot(Qmatrix)
     del Pmatrix, Qmatrix
     gc.collect()

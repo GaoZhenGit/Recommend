@@ -17,9 +17,9 @@ def makeMatrix():
     return matrix
 
 
-def addScore(index, matrix, mapper):
+def addScore(index, matrix, mapper, method):
     # f_c_n文件读入
-    fcnMap = constant.file.getfcn(index,True)  # user_id到概率P的映射
+    fcnMap = constant.file.getfcn(index, True)  # user_id到概率P的映射
     fcnList = constant.file.getfcn(index)  # 下标的
 
     # g_c_n文件读入
@@ -28,20 +28,32 @@ def addScore(index, matrix, mapper):
     mapper.reset(fcnList, gcnList)
 
     # s文件读入,并直接加入最终矩阵
-    s_file = open(constant.mf_score + str(index))
-    for i, line in enumerate(s_file):
-        real_i = mapper.mapI(i)
-        userP = float(fcnMap[fcnList[i]])
-        cur_user_score_list = line.strip().split(' ')
-        for score_pair in cur_user_score_list:
-            j, score = score_pair.split(':')
-            real_j = mapper.mapJ(int(j))
-            score = float(score)
-            if (score != 0):
-                matrix[real_i, real_j] += score * userP
 
-    s_file.close()
-    del s_file
+    if method == 'sum':
+        with open(constant.mf_score + str(index)) as s_file:
+            for i, line in enumerate(s_file):
+                real_i = mapper.mapI(i)
+                userP = float(fcnMap[fcnList[i]])
+                cur_user_score_list = line.strip().split(' ')
+                for score_pair in cur_user_score_list:
+                    j, score = score_pair.split(':')
+                    real_j = mapper.mapJ(int(j))
+                    score = float(score)
+                    if (score != 0):
+                        matrix[real_i, real_j] += score * userP
+    elif method == 'max':
+        with open(constant.mf_score + str(index)) as s_file:
+            for i, line in enumerate(s_file):
+                real_i = mapper.mapI(i)
+                userP = float(fcnMap[fcnList[i]])
+                cur_user_score_list = line.strip().split(' ')
+                for score_pair in cur_user_score_list:
+                    j, score = score_pair.split(':')
+                    real_j = mapper.mapJ(int(j))
+                    score = float(score)
+                    if (score != 0):
+                        orig = matrix[real_i, real_j]
+                        matrix[real_i, real_j] = max(orig,score * userP)
 
 
 def printMatrix(matrix, mapper):
@@ -70,7 +82,7 @@ def run():
     topicCount = constant.lda_topic_count
     for i in xrange(topicCount):
         print(str(i) + 'start')
-        addScore(i, result_holder, mapper)
+        addScore(i, result_holder, mapper, constant.mf_result_method)
     printMatrix(result_holder, mapper)
 
 if __name__ == '__main__':

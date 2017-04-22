@@ -13,7 +13,7 @@ def doMatrixF(inputFile, p, q):
                 num_users, num_items = line.strip().split('*')
                 num_users = int(num_users)
                 num_items = int(num_items)
-                matrix = sparse.lil_matrix((num_users, num_items), dtype=int)
+                matrix = sparse.lil_matrix((num_users, num_items), dtype=float)
             else:
                 glist = line.strip().split(' ')
                 if len(glist) > 1:

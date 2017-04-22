@@ -107,11 +107,22 @@ def getgcn(n):
             gcnlist.append(g)
     return gcnlist
 
+
 def getgcn_map(n):
     gcn_map = {}
     with open(lda_gcn + str(n)) as file:
-        for i,line in enumerate(file):
+        for i, line in enumerate(file):
             line = line.strip().split(' ')
             g = line[0]
             gcn_map[g] = i
     return gcn_map
+
+
+def get_raw_fcn(n):
+    list = []
+    with open(lda_theta) as file:
+        for i, line in enumerate(file):
+            line = line.strip().split(' ')
+            p = line[n]
+            list.append(float(p))
+    return list

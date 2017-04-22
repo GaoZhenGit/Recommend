@@ -2,6 +2,7 @@
 import constant
 import constant.file
 from multiprocessing import Process
+from math import log
 
 
 def read(n=-1):
@@ -27,6 +28,7 @@ def __read_matrix(n, relation, doc_map):
     fcn_list = constant.file.getfcn(n)
     gcn_list = constant.file.getgcn(n)
     gcn_map = constant.file.getgcn_map(n)
+    raw_fcn = constant.file.get_raw_fcn(n)
     row = len(fcn_list)
     col = len(gcn_list)
     output = open(constant.mf_matrix + str(n), 'w')
@@ -35,7 +37,9 @@ def __read_matrix(n, relation, doc_map):
         glist = relation[doc_map[f]]
         for g in glist:
             if gcn_map.has_key(g):
-                __double_relation(output, f, g, gcn_map, doc_map, relation)
+                gi = gcn_map[g]
+                sp = constant.mf_matrix_rate + log(raw_fcn[doc_map[g]])
+                output.write(str(gi) + ':' + str(sp) + ' ')
         output.write('\n')
     output.close()
     print str(n) + ' finish'

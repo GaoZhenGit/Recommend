@@ -4,6 +4,7 @@ import time
 import sys
 import constant
 import constant.file
+from math import log
 
 test_set_dir = constant.data_testset
 conculsionDir = constant.conclusion_dir
@@ -86,6 +87,56 @@ def compute_conversion(hit_set, output):
     output.write('conversion2: ' + str(conversion2) + '\n')
 
 
+def compute_ndcg(hit_set, test_set, output):
+    hit_map = {}
+    for it in hit_set:
+        fid, gid = it.split(' ')
+        if hit_map.has_key(fid):
+            hit_map[fid].append(gid)
+        else:
+            hit_map[fid] = []
+            hit_map[fid].append(gid)
+    flist = []
+    test_map = {}
+    for it in test_set:
+        fid, gid = it.split(' ')
+        if test_map.has_key(fid):
+            test_map[fid].append(gid)
+        else:
+            test_map[fid] = []
+            test_map[fid].append(gid)
+            flist.append(fid)
+    dcg_sum = 0.0
+    idcn_sum = 0.0
+    for fid in flist:
+        if not hit_map.has_key(fid):
+            continue
+        hit_list = hit_map[fid]
+        test_list = test_map[fid]
+        pos_list = range(len(test_list))  # 使用1、0列表表示在单个用户的测试列中，是否被推荐正确
+        for i, t in enumerate(test_list):
+            if t in hit_list:
+                pos_list[i] = 1
+            else:
+                pos_list[i] = 0
+        dcg = 0
+        one_count = 0  # 统计单个用户推荐列里正确个数
+        for i, p in enumerate(pos_list):
+            dcg += p / (log(i + 2, 2))
+            if p == 1:
+                one_count += 1
+        idcg = 0
+        for i in range(one_count):
+            idcg += 1 / (log(i + 2, 2))
+
+        dcg_sum += dcg
+        idcn_sum += idcg
+
+    ndcg = dcg_sum / idcn_sum
+    print 'ndcg:', ndcg
+    output.write('ndcg:' + str(ndcg) + '\n')
+
+
 def run():
     output = open(conculsionDir + str(int(time.time())) + '.txt', 'w')
     result_set = get_result_set(output)
@@ -93,6 +144,7 @@ def run():
     hit_set = get_hit_set(result_set, test_set, output)
     compute_recall_precision_f1(hit_set, result_set, test_set, output)
     compute_conversion(hit_set, output)
+    compute_ndcg(hit_set, test_set, output)
     output.close()
 
 

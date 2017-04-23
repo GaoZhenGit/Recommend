@@ -29,6 +29,7 @@ def __read_matrix(n, relation, doc_map):
     gcn_list = constant.file.getgcn(n)
     gcn_map = constant.file.getgcn_map(n)
     raw_fcn = constant.file.get_raw_fcn(n)
+    doc_count = constant.file.get_doc_count()
     row = len(fcn_list)
     col = len(gcn_list)
     output = open(constant.mf_matrix + str(n), 'w')
@@ -38,9 +39,10 @@ def __read_matrix(n, relation, doc_map):
         for g in glist:
             if gcn_map.has_key(g):
                 gi = gcn_map[g]
-                sp = constant.mf_matrix_rate + log(raw_fcn[doc_map[g]])
+                sp = log(raw_fcn[doc_map[g]] * doc_count * raw_fcn[doc_map[f]] * doc_count) * constant.mf_matrix_rate + 1
                 output.write(str(gi) + ':' + str(sp) + ' ')
         output.write('\n')
+
     output.close()
     print str(n) + ' finish'
 
@@ -49,7 +51,7 @@ def __read_matrix(n, relation, doc_map):
 def __double_relation(output, f, g, gcn_map, doc_map, relation, rate=constant.mf_matrix_rate):
     if gcn_map.has_key(g):
         gi = gcn_map[g]
-        #flist = relation[doc_map[g]]
+        # flist = relation[doc_map[g]]
         # if f in flist:
         #     output.write(str(gi) + ':' + str(rate) + ' ')
         # else:

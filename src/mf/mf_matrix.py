@@ -9,10 +9,11 @@ def read(n=-1):
     if n == -1:
         relation = constant.file.get_relation()
         doc_map = constant.file.get_docmap()
+        word_map = constant.file.get_wordmap()
         processlist = []
         for i in xrange(constant.lda_topic_count):
             print str(i) + ' start'
-            p = Process(target=__read_matrix, args=(i, relation, doc_map))
+            p = Process(target=__read_matrix, args=(i, relation, doc_map, word_map))
             p.start()
             processlist.append(p)
             # __read_matrix(i, relation, doc_map)
@@ -21,27 +22,39 @@ def read(n=-1):
     else:
         relation = constant.file.get_relation()
         doc_map = constant.file.get_docmap()
-        __read_matrix(n, relation, doc_map)
+        word_map = constant.file.get_wordmap()
+        __read_matrix(n, relation, doc_map, word_map)
 
 
-def __read_matrix(n, relation, doc_map):
+def __read_matrix(n, relation, doc_map, word_map):
     fcn_list = constant.file.getfcn(n)
     gcn_list = constant.file.getgcn(n)
+
     gcn_map = constant.file.getgcn_map(n)
+
     raw_fcn = constant.file.get_raw_fcn(n)
+    raw_gcn = constant.file.get_raw_gcn(n)
+
     doc_count = constant.file.get_doc_count()
+    word_count = constant.file.get_word_count()
+
     row = len(fcn_list)
     col = len(gcn_list)
     output = open(constant.mf_matrix + str(n), 'w')
     output.write(str(row) + '*' + str(col) + '\n')
+    splist = []
     for i, f in enumerate(fcn_list):
         glist = relation[doc_map[f]]
         for g in glist:
             if gcn_map.has_key(g):
                 gi = gcn_map[g]
-                sp = log(raw_fcn[doc_map[g]] * doc_count * raw_fcn[doc_map[f]] * doc_count) * constant.mf_matrix_rate + 1
+                sp = log(raw_fcn[doc_map[f]] * doc_count * raw_gcn[word_map[g]] * word_count) * constant.mf_matrix_rate + 1
+                splist.append(sp)
                 output.write(str(gi) + ':' + str(sp) + ' ')
         output.write('\n')
+
+    splist.sort()
+    print max(splist),min(splist),sum(splist)/len(splist),splist[len(splist) /2]
 
     output.close()
     print str(n) + ' finish'

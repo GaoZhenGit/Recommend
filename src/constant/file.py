@@ -126,3 +126,15 @@ def get_raw_fcn(n):
             p = line[n]
             list.append(float(p))
     return list
+
+
+def get_raw_gcn(n):
+    list = []
+    with open(lda_phi) as file:
+        for i, line in enumerate(file):
+           if i == n:
+               line = line.strip().split(' ')
+               for it in line:
+                   list.append(float(it))
+               break
+    return list

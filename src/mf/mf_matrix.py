@@ -48,7 +48,11 @@ def __read_matrix(n, relation, doc_map, word_map):
         for g in glist:
             if gcn_map.has_key(g):
                 gi = gcn_map[g]
-                sp = log(raw_fcn[doc_map[f]] * doc_count * raw_gcn[word_map[g]] * word_count) * constant.mf_matrix_rate + 1
+                trust = raw_fcn[doc_map[f]] * doc_count * raw_gcn[word_map[g]] * word_count
+                if trust <= 0:
+                    sp = 1
+                else:
+                    sp = log(trust) * constant.mf_matrix_rate + 1
                 splist.append(sp)
                 output.write(str(gi) + ':' + str(sp) + ' ')
         output.write('\n')
@@ -73,4 +77,4 @@ def __double_relation(output, f, g, gcn_map, doc_map, relation, rate=constant.mf
 
 
 if __name__ == '__main__':
-    read(-1)
+    read(0)

@@ -35,9 +35,6 @@ def __read_matrix(n, relation, doc_map, word_map):
     raw_fcn = constant.file.get_raw_fcn(n)
     raw_gcn = constant.file.get_raw_gcn(n)
 
-    doc_count = constant.file.get_doc_count()
-    word_count = constant.file.get_word_count()
-
     row = len(fcn_list)
     col = len(gcn_list)
     output = open(constant.mf_matrix + str(n), 'w')
@@ -48,7 +45,7 @@ def __read_matrix(n, relation, doc_map, word_map):
         for g in glist:
             if gcn_map.has_key(g):
                 gi = gcn_map[g]
-                trust = raw_fcn[doc_map[f]] * doc_count * raw_gcn[word_map[g]] * word_count
+                trust = raw_fcn[doc_map[f]] * row * raw_gcn[word_map[g]] * col
                 if trust <= 0:
                     sp = 1
                 else:

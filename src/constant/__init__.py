@@ -35,7 +35,7 @@ mf_matrix = mf_matrix_dir + 'z_'
 mf_pq = mf_dir + 'pq/'
 mf_p = mf_pq + 'p_'
 mf_q = mf_pq + 'q_'
-mf_matrix_rate = 2
+mf_matrix_rate = 3.5
 mf_factors_count = 10
 
 mf_score_dir = mf_dir + 'score/'

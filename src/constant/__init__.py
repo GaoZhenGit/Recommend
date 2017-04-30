@@ -14,6 +14,7 @@ data_wordmap = data_dir + 'wordmap.txt'
 data_other = data_dir + 'other.json'
 
 # lda path
+lda_method = 'blda'
 lda_dir = base_dir + 'ldaDir/'
 lda_theta = lda_dir + 'model-final.theta'
 lda_theta_after = lda_theta + '-after'

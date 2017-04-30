@@ -1,6 +1,10 @@
 # -*- coding: UTF-8 -*-
 import scipy.sparse as sparse
-import _vector_beta_lda as lda
+import constant
+if constant.lda_method == 'blda':
+    import _vector_beta_lda as lda
+elif constant.lda_method == 'lda':
+    import lda
 import constant.file
 import other.mosttop as mt
 import math
@@ -59,7 +63,10 @@ def __get_beta_list():
 
 def run():
     matrix = get_matrix()
-    model = do_lda(matrix,beta= __get_beta_list())
+    if constant.lda_method == 'blda':
+        model = do_lda(matrix,beta= __get_beta_list())
+    elif constant.lda_method == 'lda':
+        model = do_lda(matrix)
     print_model(model)
 
 if __name__ == '__main__':

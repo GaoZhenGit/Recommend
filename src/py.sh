@@ -35,6 +35,10 @@ case $1 in
     "mf_result")
     python -m mf.mf_result
     ;;
+
+    "mf_fastmf")
+    python -m mf.fast_mf
+    ;;
     
     "con")
     python -m conclusion.conclusion_cal $2
@@ -50,6 +54,10 @@ case $1 in
 
     "dir_lda")
     python -m other.dir_lda
+    ;;
+
+    "dir_fmf")
+    python -m other.dir_fastmf
     ;;
 
     "mt_pre")

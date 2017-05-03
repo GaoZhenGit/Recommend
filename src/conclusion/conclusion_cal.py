@@ -25,6 +25,8 @@ def get_result_set(output):
         result_set_dir = constant.other_mt_lda_edge
     elif sys.argv[1] == 'mtmf':
         result_set_dir = constant.other_mt_mf_edge
+    elif sys.argv[1] == 'dirfmf':
+        result_set_dir = constant.other_dirfmf_edges
 
     print result_set_dir
     result_set = []
